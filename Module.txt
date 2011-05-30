@@ -1,0 +1,11 @@
+Name: Definition List
+AntiForgery: enabled
+Author: Richard Slater
+Website: http://www.richard-slater.co.uk/
+Version: 0.2
+OrchardVersion: 1.1
+Description: Module Part to provision a selectable list of definitions as check boxes
+Features:
+	Definition List:
+		Description: Adds Definition List Part
+		Category: Content

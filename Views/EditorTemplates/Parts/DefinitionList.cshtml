@@ -1,0 +1,23 @@
+﻿@model Contrib.DefinitionList.ViewModels.EditDefinitionListViewModel
+<fieldset><legend>@T("Definition List")</legend>
+<ul>
+@{
+ var definitionIndex = 0;
+}
+@foreach (var definition in Model.DefinitionList) {
+	<li><input type="hidden" value="@definition.Record.Id"
+		name="@Html.FieldNameFor(m => m.DefinitionList[definitionIndex].Record.Id)"/>
+		<label for="@Html.FieldNameFor(m => m.DefinitionList[definitionIndex].IsChecked)">
+			<input type="checkbox" value="true"
+				name="@Html.FieldNameFor(m => m.DefinitionList[definitionIndex].IsChecked)"
+				id="@Html.FieldNameFor(m => m.DefinitionList[definitionIndex].IsChecked)"
+				@if (definition.IsChecked) {<text>checked="checked"</text>}/>
+			@string.Format("{0} ({1}...)",
+				definition.Record.Term,
+				definition.Record.Definition.Substring(0, 20))
+		</label>
+		@{definitionIndex++;}
+	</li>
+}
+</ul>
+</fieldset>

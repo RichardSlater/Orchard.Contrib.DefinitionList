@@ -1,0 +1,7 @@
+﻿<h4>@T("DefinitionList"):</h4>
+<dl>
+@foreach (var entry in Model.DefinitionList) {
+	<dt>@entry.Term</dt>
+	<dd>@entry.Definition</dd>
+}
+</dl>
