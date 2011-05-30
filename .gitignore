@@ -1,0 +1,9 @@
+# Various OS Generated Files
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# CSC Generated Binaries
+bin
+obj
