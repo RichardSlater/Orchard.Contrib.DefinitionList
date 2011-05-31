@@ -11,7 +11,7 @@ namespace Contrib.DefinitionList.Drivers {
 	public class DefinitionListPartDriver : ContentPartDriver<DefinitionListPart> {
 		private readonly IDefinitionListService _definitionListService;
 
-		private const string TemplateName = "Parts/Definition List";
+		private const string TemplateName = "Parts/DefinitionList";
 
 		public DefinitionListPartDriver(IDefinitionListService definitionListService) {
 			_definitionListService = definitionListService;
@@ -22,7 +22,7 @@ namespace Contrib.DefinitionList.Drivers {
 		}
 
 		protected override DriverResult Display(DefinitionListPart part, string displayType, dynamic shapeHelper) {
-			return ContentShape("Parts_DefinititionList", 
+			return ContentShape("Parts_DefinitionList", 
 				 () => shapeHelper.Parts_DefinitionList(
 					 ContentPart: part, 
 					 DefinitionList: part.Entries));
