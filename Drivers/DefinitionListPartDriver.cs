@@ -22,7 +22,7 @@ namespace Contrib.DefinitionList.Drivers {
 		}
 
 		protected override DriverResult Display(DefinitionListPart part, string displayType, dynamic shapeHelper) {
-			return ContentShape("Parts_DefinititionList", 
+			return ContentShape("Parts_DefinitionList", 
 				 () => shapeHelper.Parts_DefinitionList(
 					 ContentPart: part, 
 					 DefinitionList: part.Entries));
