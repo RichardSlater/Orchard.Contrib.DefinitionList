@@ -49,5 +49,19 @@ namespace Contrib.DefinitionList.Services
 		public IEnumerable<DefinitionRecord> GetDefinitionList() {
 			return _definitionListRepository.Table.ToList();
 		}
+
+		public DefinitionRecord GetById(int id) {
+			return _definitionListRepository.Table.FirstOrDefault(x => x.Id == id);
+		}
+
+		public void UpdateDefinitionItem(int id, string term, string definition) {
+			var entity = new DefinitionRecord {
+				Id = id,
+				Term = term,
+				Definition = definition
+			};
+
+			_definitionListRepository.Update(entity);
+		}
 	}
 }

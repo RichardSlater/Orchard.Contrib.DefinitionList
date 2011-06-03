@@ -8,9 +8,9 @@ namespace Contrib.DefinitionList
         public string MenuName { get { return "admin"; } } // this must be admin for items to appear in the admin menu...
 
         public void GetNavigation(NavigationBuilder builder) {
-            builder.AddImageSet("definitionLists")
+            builder
                 .Add(T("A-Z"), "5",
-                    menu => menu.Add(T("List"), "0", item => item.Action("Index", "Admin", new { area = "DefinitionList" })));
+                    menu => menu.Add(T("List"), "0", item => item.Action("Index", "Admin", new { area = "Contrib.DefinitionList" })));
         }
     }
 }

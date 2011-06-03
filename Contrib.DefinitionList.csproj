@@ -80,6 +80,8 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="ViewModels\DefinitionListAdminEditViewModel.cs" />
+    <Compile Include="ResourceManifest.cs" />
     <Compile Include="ViewModels\DefinitionListAdminCreateViewModel.cs" />
     <Compile Include="ViewModels\DefinitionListAdminIndexViewModel.cs" />
     <Compile Include="Drivers\DefinitionListPartDriver.cs" />

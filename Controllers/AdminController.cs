@@ -10,6 +10,7 @@ using Orchard.Localization;
 using Orchard.Mvc.Extensions;
 using Contrib.DefinitionList.Models;
 using Contrib.DefinitionList.ViewModels;
+using Orchard.DisplayManagement.Shapes;
 
 namespace Contrib.DefinitionList.Controllers {
     [ValidateInput(false)]
@@ -26,12 +27,41 @@ namespace Contrib.DefinitionList.Controllers {
 
         public Localizer T { get; set; }
 
+        dynamic Shape { get; set; }
+
         public ActionResult Index() {
-            IEnumerable<DefinitionRecord> definitions = _definitionListService.GetDefinitionList();
+			var definitions = _definitionListService.GetDefinitionList();
             var entries = definitions.Select(CreateDefinitionEntry).ToList();
             var model = new DefinitionListAdminIndexViewModel { Definitions = entries };
             return View(model);
         }
+
+		public ActionResult Edit(int id) {
+			var definition = _definitionListService.GetById(id);
+			
+			if (definition == null)
+				return RedirectToAction("Index");
+
+			var viewModel = new DefinitionListAdminEditViewModel {
+				Id = definition.Id,
+				Term = definition.Term,
+				Definition = definition.Definition
+			};
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult Edit(FormCollection values) {
+			var viewModel = new DefinitionListAdminEditViewModel();
+
+			if (!TryUpdateModel(viewModel))
+				return View(viewModel);
+
+			_definitionListService.UpdateDefinitionItem(viewModel.Id, viewModel.Term, viewModel.Definition);
+
+			return RedirectToAction("Index");
+		}
 
         private static DefinitionEntry CreateDefinitionEntry(DefinitionRecord definitionRecord) {
             return new DefinitionEntry {

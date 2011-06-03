@@ -3,7 +3,6 @@
 @using Contrib.DefinitionList.ViewModels;
 @{
     Script.Require("ShapesBase");
-    //Style.Require("DefinitionListAdmin");
     Layout.Title = T("A-Z").ToString();
 }
 
@@ -25,22 +24,18 @@
             @foreach (var definition in Model.Definitions) { 
             <tr>
                 <td>
-                    @definition.Record.Term
+                    @Html.ActionLink(definition.Record.Term, "Edit", new { id = definition.Record.Id })
                 </td>
                 <td>
-                    @Html.ActionLink(definition.Record.Definition, "Edit", new { id = definition.Record.Id })
+                    @definition.Record.Definition
                 </td>
                 <td>
-                    Do Something
+                    @Html.ActionLink("Edit", "Edit", new { id = definition.Record.Id }, new { @class = "button grey" })
+					@Html.ActionLink("Delete", "Delete", new { id = definition.Record.Id }, new { @class = "button remove" })
                 </td>
             </tr>
-                definitionIndex = definitionIndex + 1;
+                definitionIndex++;
             }
         </table>
     </fieldset>
-    
-    <div>
-        @Display.EditorTemplate(TemplateName: "Parts/CreateDefinition", Model: ViewData["CreateDefinition"] != null ? ViewData["CreateDefinition"] : new DefinitionListAdminCreateViewModel())
-    </div>
-
 }
