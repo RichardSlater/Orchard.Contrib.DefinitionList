@@ -1,0 +1,15 @@
+﻿@model Contrib.DefinitionList.ViewModels.DefinitionListAdminCreateViewModel
+@using (Html.BeginFormAntiForgeryPost()) { 
+    <h2>Create New Definition</h2>
+    <fieldset>
+        @Html.LabelFor(m => m.DefinitionTerm, T("Term"))
+        @Html.TextBoxFor(m => m.DefinitionTerm, new { @class = "text", placeholder = T("New Term") })
+    </fieldset>
+    <fieldset>
+        @Html.LabelFor(m => m.DefinitionDefinition, T("Definition"))
+        @Html.TextBoxFor(m => m.DefinitionDefinition, new { @class = "text", placeholder = T("New Definition") })
+    </fieldset>
+    <fieldset>
+        <button class="primaryAction" type="submit" name="submit.Create" value="yes">@T("Add Definition")</button>
+    </fieldset>
+}

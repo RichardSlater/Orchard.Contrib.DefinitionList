@@ -3,13 +3,7 @@ using System.Collections.Generic;
 
 namespace Contrib.DefinitionList.ViewModels
 {
-    public class DefinitionListAdminIndexViewModel
-    {
-        public DefinitionListAdminIndexViewModel()
-        {
-
-        }
-
-        public List<DefinitionEntry> Tags { get; set; }
+    public class DefinitionListAdminIndexViewModel {
+        public IList<DefinitionEntry> Definitions { get; set; }
     }
 }

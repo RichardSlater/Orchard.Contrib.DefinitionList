@@ -1,0 +1,46 @@
+﻿@model Contrib.DefinitionList.ViewModels.DefinitionListAdminIndexViewModel
+@using Orchard.Utility.Extensions;
+@using Contrib.DefinitionList.ViewModels;
+@{
+    Script.Require("ShapesBase");
+    //Style.Require("DefinitionListAdmin");
+    Layout.Title = T("A-Z").ToString();
+}
+
+@Html.ValidationSummary() 
+@using(Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <table class="items" summary="@T("This is a table of the definitions in the site")" >
+            <colgroup>
+                <col id="Term" />
+                <col id="Definition" />
+                <col id="Edit" />
+            </colgroup>
+            <thead>
+                <th scope="col">@T("Term")</th>
+                <th scope="col">@T("Definition")</th>
+                <th scope="col"></th>
+            </thead>
+            @{ var definitionIndex = 0; }
+            @foreach (var definition in Model.Definitions) { 
+            <tr>
+                <td>
+                    @definition.Record.Term
+                </td>
+                <td>
+                    @Html.ActionLink(definition.Record.Definition, "Edit", new { id = definition.Record.Id })
+                </td>
+                <td>
+                    Do Something
+                </td>
+            </tr>
+                definitionIndex = definitionIndex + 1;
+            }
+        </table>
+    </fieldset>
+    
+    <div>
+        @Display.EditorTemplate(TemplateName: "Parts/CreateDefinition", Model: ViewData["CreateDefinition"] != null ? ViewData["CreateDefinition"] : new DefinitionListAdminCreateViewModel())
+    </div>
+
+}

@@ -10,7 +10,6 @@ using Orchard.Localization;
 using Orchard.Mvc.Extensions;
 using Contrib.DefinitionList.Models;
 using Contrib.DefinitionList.ViewModels;
-// Spacer - REMOVE
 
 namespace Contrib.DefinitionList.Controllers {
     [ValidateInput(false)]
@@ -27,20 +26,17 @@ namespace Contrib.DefinitionList.Controllers {
 
         public Localizer T { get; set; }
 
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             IEnumerable<DefinitionRecord> definitions = _definitionListService.GetDefinitionList();
             var entries = definitions.Select(CreateDefinitionEntry).ToList();
-            var model = new DefinitionListAdminIndexViewModel { Tags = entries };
+            var model = new DefinitionListAdminIndexViewModel { Definitions = entries };
             return View(model);
         }
 
-        private static DefinitionEntry CreateDefinitionEntry(DefinitionRecord definitionRecord)
-        {
-            return new DefinitionEntry
-            {
+        private static DefinitionEntry CreateDefinitionEntry(DefinitionRecord definitionRecord) {
+            return new DefinitionEntry {
                 Record = definitionRecord,
-                IsChecked = false,
+                IsChecked = false
             };
         }
     }

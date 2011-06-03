@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="ViewModels\DefinitionListAdminCreateViewModel.cs" />
     <Compile Include="ViewModels\DefinitionListAdminIndexViewModel.cs" />
     <Compile Include="Drivers\DefinitionListPartDriver.cs" />
     <Compile Include="Handlers\DefinitionListPartHandler.cs" />
@@ -102,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="placement.info" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\CreateDefinition.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
