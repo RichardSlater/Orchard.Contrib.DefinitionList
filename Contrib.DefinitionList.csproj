@@ -78,6 +78,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="ViewModels\DefinitionListAdminIndexViewModel.cs" />
     <Compile Include="Drivers\DefinitionListPartDriver.cs" />
     <Compile Include="Handlers\DefinitionListPartHandler.cs" />
     <Compile Include="Migrations.cs" />
@@ -90,9 +93,7 @@
     <Compile Include="ViewModels\DefinitionEntry.cs" />
     <Compile Include="ViewModels\EditDefinitionListViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\DefinitionList.cshtml" />
   </ItemGroup>
