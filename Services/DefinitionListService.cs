@@ -63,5 +63,28 @@ namespace Contrib.DefinitionList.Services
 
 			_definitionListRepository.Update(entity);
 		}
+
+		public void DeleteDefinitionItem(int id) {
+			var entity = _definitionListRepository
+				.Get(x => x.Id == id);
+			
+			var associatedContent = _definitionListContentRepository
+				.Fetch(x => x.DefinitionRecord.Id == id);
+
+			foreach (var item in associatedContent) {
+				_definitionListContentRepository.Delete(item);
+			}
+
+			_definitionListRepository.Delete(entity);
+		}
+
+		public void CreateDefinitionItem(string term, string definition) {
+			var entity = new DefinitionRecord {
+				Term = term,
+				Definition = definition
+			};
+
+			_definitionListRepository.Create(entity);
+		}
 	}
 }

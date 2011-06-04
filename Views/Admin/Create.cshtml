@@ -7,7 +7,7 @@
     </fieldset>
     <fieldset>
         @Html.LabelFor(m => m.DefinitionDefinition, T("Definition"))
-        @Html.TextBoxFor(m => m.DefinitionDefinition, new { @class = "text", placeholder = T("New Definition") })
+        @Html.TextAreaFor(m => m.DefinitionDefinition, new { @class = "text", placeholder = T("New Definition") })
     </fieldset>
     <fieldset>
         <button class="primaryAction" type="submit" name="submit.Create" value="yes">@T("Add Definition")</button>

@@ -24,17 +24,40 @@ namespace Contrib.DefinitionList.Controllers {
         }
 
         public IOrchardServices Services { get; set; }
-
         public Localizer T { get; set; }
 
-        dynamic Shape { get; set; }
+		#region Create
 
-        public ActionResult Index() {
+		public ActionResult Create() {
+			return View(new DefinitionListAdminCreateViewModel());
+		}
+
+		[HttpPost]
+		public ActionResult Create(FormCollection values) {
+			var viewModel = new DefinitionListAdminCreateViewModel();
+
+			if (!TryUpdateModel(viewModel))
+				return View(viewModel);
+
+			_definitionListService.CreateDefinitionItem(viewModel.DefinitionTerm, viewModel.DefinitionDefinition);
+
+			return RedirectToAction("Index");
+		}
+
+		#endregion
+
+		#region Read
+
+		public ActionResult Index() {
 			var definitions = _definitionListService.GetDefinitionList();
-            var entries = definitions.Select(CreateDefinitionEntry).ToList();
-            var model = new DefinitionListAdminIndexViewModel { Definitions = entries };
-            return View(model);
-        }
+			var entries = definitions.Select(CreateDefinitionEntry).ToList();
+			var model = new DefinitionListAdminIndexViewModel { Definitions = entries };
+			return View(model);
+		}
+
+		#endregion
+
+		#region Update
 
 		public ActionResult Edit(int id) {
 			var definition = _definitionListService.GetById(id);
@@ -63,11 +86,48 @@ namespace Contrib.DefinitionList.Controllers {
 			return RedirectToAction("Index");
 		}
 
-        private static DefinitionEntry CreateDefinitionEntry(DefinitionRecord definitionRecord) {
-            return new DefinitionEntry {
-                Record = definitionRecord,
-                IsChecked = false
-            };
-        }
-    }
+		#endregion
+
+		#region Delete
+
+		public ActionResult Delete(int id) {
+			var definition = _definitionListService.GetById(id);
+
+			if (definition == null)
+				return RedirectToAction("Index");
+			
+			var viewModel = new DefinitionListAdminDeleteViewModel
+			{
+				Id = definition.Id,
+				Term = definition.Term,
+				Definition = definition.Definition
+			};
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult Delete(FormCollection values) {
+			var viewModel = new DefinitionListAdminDeleteViewModel();
+
+			if (!TryUpdateModel(viewModel))
+				return View(viewModel);
+
+			_definitionListService.DeleteDefinitionItem(viewModel.Id);
+
+			return RedirectToAction("Index");
+		}
+		
+		#endregion
+
+		
+		private static DefinitionEntry CreateDefinitionEntry(DefinitionRecord definitionRecord)
+		{
+			return new DefinitionEntry
+			{
+				Record = definitionRecord,
+				IsChecked = false
+			};
+		}
+	}
 }

@@ -1,0 +1,18 @@
+﻿@model Contrib.DefinitionList.ViewModels.DefinitionListAdminDeleteViewModel
+
+@{ Layout.Title = T("Delete Term").ToString(); }
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+    <fieldset>
+		@T("Are you sure you want to delete this term, you will not be able to undo this action?")
+        @Html.HiddenFor(m=>m.Id)
+		<dl>
+			<dt>@Model.Term</dt>
+			<dd>@Model.Definition</dd>
+		</dl>
+    </fieldset>
+    <fieldset>
+        <button class="primaryAction remove" type="submit">@T("Delete")</button>
+    </fieldset>
+}
