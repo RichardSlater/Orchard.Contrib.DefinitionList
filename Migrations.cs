@@ -19,8 +19,7 @@ namespace Contrib.DefinitionList {
 			_definitionListRepository = definitionListRepository;
 		}
 
-		public int Create()
-		{
+		public int Create() {
 			SchemaBuilder.CreateTable("DefinitionListPartRecord",
 				table => table
 					.ContentPartRecord()
@@ -52,6 +51,17 @@ namespace Contrib.DefinitionList {
 			}
 
 			return 1;
+		}
+
+		public int UpdateFrom1() {
+			SchemaBuilder.CreateTable("DefinitionListSubItems",
+				table => table
+					.Column<int>("Id", column => column.PrimaryKey().Identity())
+					.Column<int>("ParentDefinitionRecord_Id")
+					.Column<int>("ChildDefinitionRecord_Id")
+				);
+
+			return 2;
 		}
 	}
 }

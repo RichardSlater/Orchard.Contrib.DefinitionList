@@ -8,16 +8,19 @@ using Orchard.Data;
 
 namespace Contrib.DefinitionList.Services
 {
-	public class DefinitionListService : IDefinitionListService {
+    public class DefinitionListService : IDefinitionListService {
 		private readonly IRepository<DefinitionRecord> _definitionListRepository;
 		private readonly IRepository<ContentDefinitionRecord> _definitionListContentRepository;
-
+		private readonly IRepository<DefinitionSubItemRecord> _definitionSubItemRepository;
+  
 		public DefinitionListService(
 			IRepository<DefinitionRecord> definitionListRepository,
-			IRepository<ContentDefinitionRecord> definitionListContentRepository) {
+			IRepository<ContentDefinitionRecord> definitionListContentRepository,
+			IRepository<DefinitionSubItemRecord> definitionSubItemsReposory) {
 			
 			_definitionListRepository = definitionListRepository;
 			_definitionListContentRepository = definitionListContentRepository;
+			_definitionSubItemRepository = definitionSubItemsReposory;
 		}
 
 		public void UpdateDefinitionListForContentItem(ContentItem item, IEnumerable<DefinitionEntry> definitionEntries) {
@@ -52,6 +55,19 @@ namespace Contrib.DefinitionList.Services
 
 		public DefinitionRecord GetById(int id) {
 			return _definitionListRepository.Table.FirstOrDefault(x => x.Id == id);
+		}
+
+		public IEnumerable<DefinitionRecord> GetChildItemsById(int id) {
+			var childRecords = _definitionSubItemRepository.Fetch(x => x.ParentDefinition == id);
+
+			if (childRecords.Count() == 0)
+				return new List<DefinitionRecord>();
+
+			var childDefinitions = from d in _definitionListRepository.Table
+								   where childRecords.Select(c => c.Id).ToArray().Contains(d.Id)
+								   select d;
+
+			return childDefinitions.AsEnumerable();
 		}
 
 		public void UpdateDefinitionItem(int id, string term, string definition) {

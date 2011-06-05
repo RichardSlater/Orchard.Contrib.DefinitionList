@@ -16,6 +16,7 @@ namespace Contrib.DefinitionList.Services
 		#region Definition Item Management
 		DefinitionRecord GetById(int id);
 		IEnumerable<DefinitionRecord> GetDefinitionList();
+		IEnumerable<DefinitionRecord> GetChildItemsById(int id);
 		void UpdateDefinitionItem(int id, string term, string definition);
 		void DeleteDefinitionItem(int id);
 		void CreateDefinitionItem(string term, string definition);

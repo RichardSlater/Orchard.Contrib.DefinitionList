@@ -14,7 +14,11 @@
         @Html.LabelFor(m => m.Definition, T("Defintion"))
         @Html.TextAreaFor(m => m.Definition, new { @class = "text" })
     </fieldset>
-	
+
+	<fieldset>
+		@Model.SubItems.Count SubItems
+    </fieldset>
+		
     <fieldset>
         <button class="primaryAction" type="submit">@T("Save")</button>
     </fieldset>

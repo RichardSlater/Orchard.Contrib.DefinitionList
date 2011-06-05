@@ -65,10 +65,13 @@ namespace Contrib.DefinitionList.Controllers {
 			if (definition == null)
 				return RedirectToAction("Index");
 
+			var childItems = _definitionListService.GetChildItemsById(id);
+
 			var viewModel = new DefinitionListAdminEditViewModel {
 				Id = definition.Id,
 				Term = definition.Term,
-				Definition = definition.Definition
+				Definition = definition.Definition,
+				SubItems = childItems.ToList()
 			};
 
 			return View(viewModel);
