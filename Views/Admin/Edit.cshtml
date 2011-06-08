@@ -16,9 +16,11 @@
     </fieldset>
 
 	<fieldset>
-        @{ var subItemIndex = 0; }
+        @{ var subItemIndex = 0;
+           var disabledDictionary = new Dictionary<string, object>();
+           disabledDictionary.Add("disabled", "disabled");}
 		@foreach (var subItem in Model.SubItems) {
-            @Html.CheckBoxFor(m => Model.SubItems[subItemIndex].Checked)
+            @Html.CheckBoxFor(m => Model.SubItems[subItemIndex].Checked, subItem.Disabled ? disabledDictionary : null)
             @Html.LabelFor(m => subItem.Record.Id, T("{0}", subItem.Record.Term))
             subItemIndex++;
         }
