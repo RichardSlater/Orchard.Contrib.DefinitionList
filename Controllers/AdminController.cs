@@ -66,13 +66,21 @@ namespace Contrib.DefinitionList.Controllers {
 				return RedirectToAction("Index");
 
 			var childItems = _definitionListService.GetChildItemsById(id);
+            var allDefinitions = _definitionListService.GetDefinitionList();
 
-			var viewModel = new DefinitionListAdminEditViewModel {
-				Id = definition.Id,
-				Term = definition.Term,
-				Definition = definition.Definition,
-				SubItems = childItems.ToList()
-			};
+            var checkableList = allDefinitions
+                .Select(x => new CheckableRecord<DefinitionRecord> {
+                    Record = x,
+                    Checked = (childItems.Any(c => x.Id == c.Id)),
+                    Disabled = (x.Id == id) })
+                .ToList();
+
+            var viewModel = new DefinitionListAdminEditViewModel {
+                Id = definition.Id,
+                Term = definition.Term,
+                Definition = definition.Definition,
+                SubItems = checkableList
+            };
 
 			return View(viewModel);
 		}

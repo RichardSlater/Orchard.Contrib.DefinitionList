@@ -16,7 +16,12 @@
     </fieldset>
 
 	<fieldset>
-		@Model.SubItems.Count SubItems
+        @{ var subItemIndex = 0; }
+		@foreach (var subItem in Model.SubItems) {
+            @Html.CheckBoxFor(m => Model.SubItems[subItemIndex].Checked)
+            @Html.LabelFor(m => subItem.Record.Id, T("{0}", subItem.Record.Term))
+            subItemIndex++;
+        }
     </fieldset>
 		
     <fieldset>

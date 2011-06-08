@@ -54,7 +54,7 @@ namespace Contrib.DefinitionList {
 		}
 
 		public int UpdateFrom1() {
-			SchemaBuilder.CreateTable("DefinitionListSubItems",
+			SchemaBuilder.CreateTable("DefinitionSubItemRecord",
 				table => table
 					.Column<int>("Id", column => column.PrimaryKey().Identity())
 					.Column<int>("ParentDefinitionRecord_Id")

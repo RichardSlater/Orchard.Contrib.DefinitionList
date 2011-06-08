@@ -81,6 +81,7 @@
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Models\DefinitionSubItemRecord.cs" />
+    <Compile Include="ViewModels\CheckableRecordOfT.cs" />
     <Compile Include="ViewModels\DefinitionListAdminDeleteViewModel.cs" />
     <Compile Include="ViewModels\DefinitionListAdminEditViewModel.cs" />
     <Compile Include="ResourceManifest.cs" />

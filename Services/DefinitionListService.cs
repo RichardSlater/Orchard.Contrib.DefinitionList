@@ -8,7 +8,7 @@ using Orchard.Data;
 
 namespace Contrib.DefinitionList.Services
 {
-    public class DefinitionListService : IDefinitionListService {
+	public class DefinitionListService : IDefinitionListService {
 		private readonly IRepository<DefinitionRecord> _definitionListRepository;
 		private readonly IRepository<ContentDefinitionRecord> _definitionListContentRepository;
 		private readonly IRepository<DefinitionSubItemRecord> _definitionSubItemRepository;
@@ -58,17 +58,14 @@ namespace Contrib.DefinitionList.Services
 		}
 
 		public IEnumerable<DefinitionRecord> GetChildItemsById(int id) {
-			var childRecords = _definitionSubItemRepository.Fetch(x => x.ParentDefinition == id);
-
-			if (childRecords.Count() == 0)
-				return new List<DefinitionRecord>();
-
-			var childDefinitions = from d in _definitionListRepository.Table
-								   where childRecords.Select(c => c.Id).ToArray().Contains(d.Id)
-								   select d;
-
-			return childDefinitions.AsEnumerable();
+            var allChildRecords = GetAllChildRecords();
+			var childRecordsForId = allChildRecords.Where(x => x.ParentDefinitionRecord.Id == id).AsEnumerable();
+            return childRecordsForId.Select(x => x.ChildDefinitionRecord).ToList();
 		}
+
+        private IQueryable<DefinitionSubItemRecord> GetAllChildRecords() {
+            return _definitionSubItemRepository.Table;
+        }
 
 		public void UpdateDefinitionItem(int id, string term, string definition) {
 			var entity = new DefinitionRecord {
@@ -102,5 +99,5 @@ namespace Contrib.DefinitionList.Services
 
 			_definitionListRepository.Create(entity);
 		}
-	}
+    }
 }
